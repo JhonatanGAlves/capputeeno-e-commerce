@@ -1,9 +1,15 @@
 "use client";
+import { useContext } from "react";
+
 import Link from "next/link";
 
 import { MagnifyingGlass, ShoppingBagOpen } from "@phosphor-icons/react";
 
+import { FilterContext } from "@/context/FilterContext";
+
 export default function Header() {
+  const { inputTxt, setInputTxt } = useContext(FilterContext);
+
   const responsivePadding =
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
 
@@ -22,6 +28,8 @@ export default function Header() {
           <input
             className="w-full bg-transparent outline-none placeholder:text-[--base-placeholder] text-sm"
             type="search"
+            value={inputTxt}
+            onChange={(e) => setInputTxt(e.target.value)}
             placeholder="Looking for something specific?"
           />
           <MagnifyingGlass className="ml-4" size={22} />

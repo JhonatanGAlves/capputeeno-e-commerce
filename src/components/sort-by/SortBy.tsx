@@ -1,21 +1,16 @@
-import { KeyboardEvent, SetStateAction, useRef } from "react";
+import { KeyboardEvent, SetStateAction, useRef, useState } from "react";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { CaretDown, Check } from "@phosphor-icons/react";
+import { SortByTypes } from "@/types/types";
 
 interface SortByProps {
-  showSortDropdown: boolean;
-  setShowSortDropdown: (showSortDropdown: SetStateAction<boolean>) => void;
-  sortedBy: string;
-  setSortedBy: (sortedBy: SetStateAction<string>) => void;
+  sortedBy: SortByTypes;
+  setSortedBy: (sortedBy: SetStateAction<SortByTypes>) => void;
 }
 
-export default function SortBy({
-  showSortDropdown,
-  setShowSortDropdown,
-  sortedBy,
-  setSortedBy,
-}: SortByProps) {
+export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const sortRef = useRef(null);
 
   useOutsideClick(sortRef, () => {
@@ -47,27 +42,29 @@ export default function SortBy({
           <ul className="flex flex-col gap-1 text-sm">
             <li
               className={`${
-                sortedBy === "news"
-                  ? "flex items-center gap-1 text-[--base-placeholder]"
-                  : "pl-4"
-              } hover:text-[--base-placeholder] cursor-pointer transition-all`}
-            >
-              <Check
-                className={`${sortedBy === "news" ? "block" : "hidden"}`}
-                size={12}
-              />{" "}
-              News
-            </li>
-            <li
-              className={`${
-                sortedBy === "bigger-smaller"
+                sortedBy === SortByTypes.NEWS
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
             >
               <Check
                 className={`${
-                  sortedBy === "bigger-smaller" ? "block" : "hidden"
+                  sortedBy === SortByTypes.NEWS ? "block" : "hidden"
+                }`}
+                size={12}
+              />{" "}
+              News
+            </li>
+            <li
+              className={`${
+                sortedBy === SortByTypes.BIGGEST
+                  ? "flex items-center gap-1 text-[--base-placeholder]"
+                  : "pl-4"
+              } hover:text-[--base-placeholder] cursor-pointer transition-all`}
+            >
+              <Check
+                className={`${
+                  sortedBy === SortByTypes.BIGGEST ? "block" : "hidden"
                 }`}
                 size={12}
               />{" "}
@@ -75,14 +72,14 @@ export default function SortBy({
             </li>
             <li
               className={`${
-                sortedBy === "smaller-bigger"
+                sortedBy === SortByTypes.SMALLEST
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
             >
               <Check
                 className={`${
-                  sortedBy === "smaller-bigger" ? "block" : "hidden"
+                  sortedBy === SortByTypes.SMALLEST ? "block" : "hidden"
                 }`}
                 size={12}
               />{" "}
@@ -90,14 +87,14 @@ export default function SortBy({
             </li>
             <li
               className={`${
-                sortedBy === "best-sellers"
+                sortedBy === SortByTypes.BEST_SELLER
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
             >
               <Check
                 className={`${
-                  sortedBy === "best-sellers" ? "block" : "hidden"
+                  sortedBy === SortByTypes.BEST_SELLER ? "block" : "hidden"
                 }`}
                 size={12}
               />{" "}
