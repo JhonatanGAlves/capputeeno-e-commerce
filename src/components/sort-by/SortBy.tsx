@@ -2,7 +2,7 @@ import { KeyboardEvent, SetStateAction, useRef, useState } from "react";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { CaretDown, Check } from "@phosphor-icons/react";
-import { SortByTypes } from "@/types/types";
+import { SortByTypes } from "@/types/filter-types";
 
 interface SortByProps {
   sortedBy: SortByTypes;

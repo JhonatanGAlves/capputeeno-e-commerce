@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 
-import { TabTypes } from "@/types/types";
+import { TabTypes } from "@/types/filter-types";
 
 interface TabsProps {
   selectedTab: TabTypes;

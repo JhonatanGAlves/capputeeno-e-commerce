@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import { SortByTypes, TabTypes } from "@/types/types";
+import { SortByTypes, TabTypes } from "@/types/filter-types";
 
 interface FilterContextProps {
   inputTxt: string;
