@@ -21,6 +21,7 @@ export default function useProducts(): useProductsProps {
                   image_url
                   created_at
                   category
+                  sales
                 }
             }`,
     });

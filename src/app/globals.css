@@ -10,6 +10,7 @@
 
   --gray-100: #f3f5f6;
   --gray-200: #f5f5fa;
+  --gray-300: #dce2e5;
   --gray-500: #617480;
   --gray-600: #a8a8b3;
   --gray-700: #5d5d6d;
@@ -30,6 +31,8 @@
     --base-placeholder: #8c8c7f;
 
     --gray-100: #0a0a05;
+    --gray-200: #0a0a05;
+    --gray-300: #231d1a;
     --gray-500: #9e8b7f;
     --gray-600: #57574c;
     --gray-700: #bebeb2;
