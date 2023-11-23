@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Saira, Saira_Stencil_One } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import { FilterContextProvider } from "@/context/FilterContext";
 
 const saira = Saira({
   subsets: ["latin"],
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${saira.variable} ${sairaStencilOne.variable}`}>
-        <Header />
-        {children}
+        <FilterContextProvider>
+          <Header />
+          {children}
+        </FilterContextProvider>
       </body>
     </html>
   );
