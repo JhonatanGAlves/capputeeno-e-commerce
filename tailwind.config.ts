@@ -11,6 +11,9 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-saira-stencil-one)"],
       },
+      gridTemplateColumns: {
+        "auto-fill": "repeat(auto-fill, 16rem)",
+      },
     },
   },
   plugins: [],

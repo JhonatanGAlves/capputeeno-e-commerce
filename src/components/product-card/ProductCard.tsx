@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { formatCentsToDollar } from "@/utils/utils";
+
 export default function ProductCard({
   id,
   name,
@@ -8,10 +10,10 @@ export default function ProductCard({
   image_url,
 }: Product) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-64 xl:w-full">
       <Link href={`product/${id}`}>
         <Image
-          className="w-full h-[18.75rem] rounded-tl-lg rounded-tr-lg"
+          className="w-64 xl:w-full h-[18.75rem] rounded-tl-lg rounded-tr-lg"
           src={image_url}
           alt="Product image"
           width={256}
@@ -24,7 +26,7 @@ export default function ProductCard({
         </Link>
         <div className="w-full h-px bg-[--gray-300]" />
         <span className="font-semibold text-sm text-[--gray-1000]">
-          $ {price_in_cents.toFixed(2)}
+          {formatCentsToDollar(price_in_cents)}
         </span>
       </div>
     </div>
