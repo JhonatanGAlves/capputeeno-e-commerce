@@ -38,7 +38,7 @@ export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
         <CaretDown size={16} />
       </button>
       {showSortDropdown && (
-        <div className="px-4 py-3 bg-[--white] w-48 rounded absolute top-[1.875rem] right-0 transition-all">
+        <div className="px-4 py-3 bg-[--white] w-52 rounded absolute top-[1.875rem] right-0 transition-all">
           <ul className="flex flex-col gap-1 text-sm">
             <li
               className={`${
@@ -46,6 +46,10 @@ export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
+              onClick={() => {
+                setSortedBy(SortByTypes.NEWS);
+                setShowSortDropdown(false);
+              }}
             >
               <Check
                 className={`${
@@ -61,6 +65,10 @@ export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
+              onClick={() => {
+                setSortedBy(SortByTypes.BIGGEST);
+                setShowSortDropdown(false);
+              }}
             >
               <Check
                 className={`${
@@ -76,6 +84,10 @@ export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
+              onClick={() => {
+                setSortedBy(SortByTypes.SMALLEST);
+                setShowSortDropdown(false);
+              }}
             >
               <Check
                 className={`${
@@ -91,6 +103,10 @@ export default function SortBy({ sortedBy, setSortedBy }: SortByProps) {
                   ? "flex items-center gap-1 text-[--base-placeholder]"
                   : "pl-4"
               } hover:text-[--base-placeholder] cursor-pointer transition-all`}
+              onClick={() => {
+                setSortedBy(SortByTypes.BEST_SELLER);
+                setShowSortDropdown(false);
+              }}
             >
               <Check
                 className={`${

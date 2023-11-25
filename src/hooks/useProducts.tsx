@@ -6,26 +6,25 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ProductsFetchResponseTypes } from "@/types/products-response";
 import { FilterContext } from "@/context/FilterContext";
-import { formatSelectedTab } from "@/utils/utils";
-import { TabTypes } from "@/types/filter-types";
+import { mountQueryFilter } from "@/utils/utils";
+import { SortByTypes, TabTypes } from "@/types/filter-types";
 
 interface useProductsProps {
   products: Product[] | undefined;
 }
 
 export default function useProducts(): useProductsProps {
-  const { selectedTab } = useContext(FilterContext);
+  const { selectedTab, sortedBy } = useContext(FilterContext);
 
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-  function fetcher(tab: TabTypes): AxiosPromise<ProductsFetchResponseTypes> {
+  function fetcher(
+    tab: TabTypes,
+    sort: SortByTypes
+  ): AxiosPromise<ProductsFetchResponseTypes> {
     return axios.post(BASE_URL, {
       query: `query {
-        allProducts${
-          tab !== TabTypes.ALL
-            ? `(filter: {category: "${formatSelectedTab(tab)}"})`
-            : ""
-        } {
+        allProducts${mountQueryFilter(tab, sort)} {
           id
           name
           description
@@ -40,8 +39,8 @@ export default function useProducts(): useProductsProps {
   }
 
   const { data } = useQuery({
-    queryFn: () => fetcher(selectedTab),
-    queryKey: ["products", selectedTab],
+    queryFn: () => fetcher(selectedTab, sortedBy),
+    queryKey: ["products", selectedTab, sortedBy],
   });
 
   return { products: data?.data?.data?.allProducts };

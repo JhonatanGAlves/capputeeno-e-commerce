@@ -1,4 +1,4 @@
-import { TabTypes } from "@/types/filter-types";
+import { SortByTypes, TabTypes } from "@/types/filter-types";
 
 export function formatCentsToDollar(value: number): string {
   const formattedValue = value / 100;
@@ -11,10 +11,40 @@ export function formatCentsToDollar(value: number): string {
   return formattedInDollar;
 }
 
-export function formatSelectedTab(value: string): string {
-  if (value === TabTypes.MUG) {
-    return "mugs";
+function formatSelectedValue(value: TabTypes | SortByTypes): string {
+  switch (value) {
+    case TabTypes.MUG:
+      return "mugs";
+    case TabTypes.SHIRT:
+      return "t-shirts";
+    case SortByTypes.NEWS:
+      return "created_at";
+    case SortByTypes.BIGGEST:
+      return "price_in_cents";
+    case SortByTypes.SMALLEST:
+      return "price_in_cents";
+    case SortByTypes.BEST_SELLER:
+      return "sales";
+    default:
+      return value;
+  }
+}
+
+export function mountQueryFilter(
+  selectedTab: TabTypes,
+  sortedBy: SortByTypes
+): string {
+  const isAscOrder = sortedBy === SortByTypes.SMALLEST;
+
+  if (selectedTab !== TabTypes.ALL) {
+    return `(filter: {category: "${formatSelectedValue(
+      selectedTab
+    )}"}, sortField: "${formatSelectedValue(sortedBy)}", sortOrder: "${
+      isAscOrder ? "ASC" : "DSC"
+    }")`;
   }
 
-  return "t-shirts";
+  return `(sortField: "${formatSelectedValue(sortedBy)}", sortOrder: "${
+    isAscOrder ? "ASC" : "DSC"
+  }")`;
 }
