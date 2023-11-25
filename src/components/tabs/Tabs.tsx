@@ -17,6 +17,7 @@ export function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
               ? "font-semibold text-[--gray-800] border-[--orange-400]"
               : "border-transparent"
           } pb-1 border-b-4 border-solid cursor-pointer hover:border-[--orange-400] transition-all`}
+          onClick={() => setSelectedTab(TabTypes.ALL)}
         >
           all products
         </li>
@@ -26,6 +27,7 @@ export function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
               ? "font-semibold text-[--gray-800] border-[--orange-400]"
               : "border-transparent"
           } pb-1 border-b-4 border-solid cursor-pointer hover:border-[--orange-400] transition-all`}
+          onClick={() => setSelectedTab(TabTypes.SHIRT)}
         >
           t-shirts
         </li>
@@ -35,6 +37,7 @@ export function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
               ? "font-semibold text-[--gray-800] border-[--orange-400]"
               : "border-transparent"
           } pb-1 border-b-4 border-solid cursor-pointer hover:border-[--orange-400] transition-all`}
+          onClick={() => setSelectedTab(TabTypes.MUG)}
         >
           mugs
         </li>
