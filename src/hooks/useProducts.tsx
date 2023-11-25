@@ -14,7 +14,7 @@ interface useProductsProps {
 }
 
 export default function useProducts(): useProductsProps {
-  const { selectedTab, sortedBy } = useContext(FilterContext);
+  const { selectedTab, sortedBy, inputTxt } = useContext(FilterContext);
 
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -43,5 +43,9 @@ export default function useProducts(): useProductsProps {
     queryKey: ["products", selectedTab, sortedBy],
   });
 
-  return { products: data?.data?.data?.allProducts };
+  const filteredProducts = data?.data?.data?.allProducts.filter((product) =>
+    product?.name?.toLowerCase()?.includes(inputTxt.toLowerCase())
+  );
+
+  return { products: filteredProducts };
 }
