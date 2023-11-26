@@ -1,14 +1,15 @@
 "use client";
 import { useContext } from "react";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import SortBy from "@/components/sort-by/SortBy";
 import { FilterContext } from "@/context/FilterContext";
 import { Tabs } from "@/components/tabs/Tabs";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ProductsList } from "@/components/products-list/ProductsList";
 
 export default function Home() {
-  const { selectedTab, setSelectedTab, sortedBy, setSortedBy } =
+  const { selectedTab, setSelectedTab, sortedBy, setSortedBy, page, setPage } =
     useContext(FilterContext);
 
   const responsivePadding =
@@ -18,13 +19,15 @@ export default function Home() {
 
   return (
     <QueryClientProvider client={client}>
-      <main className={`flex flex-col ${responsivePadding} py-[2.125rem]`}>
+      <main
+        className={`flex flex-col ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
+      >
         <div className="flex justify-between items-center">
           <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-
           <SortBy sortedBy={sortedBy} setSortedBy={setSortedBy} />
         </div>
-        <ProductsList />
+
+        <ProductsList page={page} setPage={setPage} />
       </main>
     </QueryClientProvider>
   );

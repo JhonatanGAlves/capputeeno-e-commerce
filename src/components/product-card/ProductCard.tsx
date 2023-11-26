@@ -24,7 +24,7 @@ export default function ProductCard({
         <Link href={`product/${id}`}>
           <span className="font-light text-[--gray-800]">{name}</span>
         </Link>
-        <div className="w-full h-px bg-[--gray-300]" />
+        <div className="w-full h-px bg-[--gray-400]" />
         <span className="font-semibold text-sm text-[--gray-1000]">
           {formatCentsToDollar(price_in_cents)}
         </span>

@@ -34,7 +34,7 @@ export function FilterContextProvider({
   const [inputTxt, setInputTxt] = useState<string>("");
   const [selectedTab, setSelectedTab] = useState<TabTypes>(TabTypes.ALL);
   const [sortedBy, setSortedBy] = useState<SortByTypes>(SortByTypes.NEWS);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
 
   const values = useMemo(() => {
     return {

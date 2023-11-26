@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -14,17 +14,28 @@ interface useProductsProps {
 }
 
 export default function useProducts(): useProductsProps {
-  const { selectedTab, sortedBy, inputTxt } = useContext(FilterContext);
+  const [products, setProducts] = useState<Product[]>([]);
+  const { selectedTab, sortedBy, inputTxt, page } = useContext(FilterContext);
+
+  const { data } = useQuery({
+    queryFn: () => fetcher(selectedTab, sortedBy, page),
+    queryKey: ["products", selectedTab, sortedBy, page],
+  });
+
+  const filteredProducts = products.filter((product) =>
+    product?.name?.toLowerCase()?.includes(inputTxt.toLowerCase())
+  );
 
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
   function fetcher(
     tab: TabTypes,
-    sort: SortByTypes
+    sort: SortByTypes,
+    page: number
   ): AxiosPromise<ProductsFetchResponseTypes> {
     return axios.post(BASE_URL, {
-      query: `query {
-        allProducts${mountQueryFilter(tab, sort)} {
+      query: `query { 
+        allProducts${mountQueryFilter(tab, sort, 12, page)} {
           id
           name
           description
@@ -38,14 +49,11 @@ export default function useProducts(): useProductsProps {
     });
   }
 
-  const { data } = useQuery({
-    queryFn: () => fetcher(selectedTab, sortedBy),
-    queryKey: ["products", selectedTab, sortedBy],
-  });
-
-  const filteredProducts = data?.data?.data?.allProducts.filter((product) =>
-    product?.name?.toLowerCase()?.includes(inputTxt.toLowerCase())
-  );
+  useEffect(() => {
+    if (data?.data?.data?.allProducts) {
+      setProducts(data?.data?.data?.allProducts);
+    }
+  }, [data?.data?.data?.allProducts]);
 
   return { products: filteredProducts };
 }

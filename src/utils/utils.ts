@@ -32,7 +32,9 @@ function formatSelectedValue(value: TabTypes | SortByTypes): string {
 
 export function mountQueryFilter(
   selectedTab: TabTypes,
-  sortedBy: SortByTypes
+  sortedBy: SortByTypes,
+  pageNumbers: number,
+  page: number
 ): string {
   const isAscOrder = sortedBy === SortByTypes.SMALLEST;
 
@@ -41,10 +43,10 @@ export function mountQueryFilter(
       selectedTab
     )}"}, sortField: "${formatSelectedValue(sortedBy)}", sortOrder: "${
       isAscOrder ? "ASC" : "DSC"
-    }")`;
+    }", perPage: ${pageNumbers.toFixed()}, page: ${page.toFixed()})`;
   }
 
   return `(sortField: "${formatSelectedValue(sortedBy)}", sortOrder: "${
     isAscOrder ? "ASC" : "DSC"
-  }")`;
+  }", perPage: ${pageNumbers.toFixed()}, page: ${page.toFixed()})`;
 }
