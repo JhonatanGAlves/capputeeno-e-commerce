@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -6,11 +8,13 @@ import { ArrowUUpLeft, ShoppingBagOpen } from "@phosphor-icons/react";
 
 import useSingleProduct from "@/hooks/useSingleProduct";
 import { formatCentsToDollar } from "@/utils/utils";
+import { CapputeenoContext } from "@/context/CapputeenoContext";
 
 export default function Product() {
   const { id } = useParams();
 
   const { product } = useSingleProduct(id as string);
+  const { addItemToCart } = useContext(CapputeenoContext);
 
   return (
     <>
@@ -54,7 +58,10 @@ export default function Product() {
               {product?.description ?? "-"}
             </p>
           </div>
-          <button className="h-11 flex justify-center items-center gap-3 font-medium text-[--gray-200] bg-[--blue-700] uppercase rounded">
+          <button
+            onClick={() => addItemToCart(product as ShoppingCartTypes)}
+            className="h-11 flex justify-center items-center gap-3 font-medium text-[--gray-200] bg-[--blue-700] uppercase rounded"
+          >
             <ShoppingBagOpen size={16} weight="bold" />
             add to cart
           </button>

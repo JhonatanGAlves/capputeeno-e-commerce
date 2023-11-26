@@ -7,3 +7,9 @@ type Product = {
   created_at: string;
   category: string;
 };
+
+interface ShoppingCartTypes extends Product {
+  price: number;
+  totalPrice: number;
+  unit: number;
+}

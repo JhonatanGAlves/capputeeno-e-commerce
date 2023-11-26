@@ -28,7 +28,7 @@ export const FilterContext = createContext<FilterContextProps>(
   {} as FilterContextProps
 );
 
-export function FilterContextProvider({
+export default function FilterContextProvider({
   children,
 }: FilterContextProviderProps) {
   const [inputTxt, setInputTxt] = useState<string>("");

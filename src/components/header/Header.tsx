@@ -6,9 +6,11 @@ import Link from "next/link";
 import { MagnifyingGlass, ShoppingBagOpen } from "@phosphor-icons/react";
 
 import { FilterContext } from "@/context/FilterContext";
+import { CapputeenoContext } from "@/context/CapputeenoContext";
 
 export default function Header() {
   const { inputTxt, setInputTxt } = useContext(FilterContext);
+  const { countCart } = useContext(CapputeenoContext);
 
   const responsivePadding =
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
@@ -38,8 +40,12 @@ export default function Header() {
           <Link href={"/shopping-cart"}>
             <ShoppingBagOpen size={26} />
           </Link>
-          <span className="flex justify-center items-center absolute -bottom-[6px] -right-[7px] w-[17px] h-[17px] rounded-full text-[#FFFFFF] font-medium text-[0.625rem] bg-[--red-700]">
-            {0}
+          <span
+            className={`${
+              !countCart && "hidden"
+            } flex justify-center items-center absolute -bottom-[6px] -right-[7px] w-[17px] h-[17px] rounded-full text-[#FFFFFF] font-medium text-[0.625rem] bg-[--red-700]`}
+          >
+            {countCart}
           </span>
         </div>
       </div>
