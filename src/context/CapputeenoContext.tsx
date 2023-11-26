@@ -5,6 +5,7 @@ interface CapputeenoContextProps {
   shoppingCart: ShoppingCartTypes[];
   addItemToCart: (value: ShoppingCartTypes) => void;
   countCart: number;
+  countTotalPrice: number;
 }
 
 interface CapputeenoContextProviderProps {
@@ -31,6 +32,7 @@ export default function CapputeenoContextProvider({
     getShoppingCartFromStorage
   );
   const [countCart, setCountCart] = useState<number>(0);
+  const [countTotalPrice, setCountTotalPrice] = useState<number>(0);
 
   function addItemToCart(newShoppingCart: ShoppingCartTypes) {
     const itemAlreadyExistInTheCart = shoppingCart.some(
@@ -66,12 +68,18 @@ export default function CapputeenoContextProvider({
 
   useEffect(() => {
     const totalUnit = shoppingCart.map((item) => item.unit);
-
     const sumUnit = totalUnit.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
     );
 
+    const totalPrice = shoppingCart.map((item) => item.totalPrice);
+    const sumTotalPrice = totalPrice.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+
+    setCountTotalPrice(sumTotalPrice);
     setCountCart(sumUnit);
   }, [shoppingCart]);
 
@@ -80,6 +88,7 @@ export default function CapputeenoContextProvider({
       shoppingCart,
       addItemToCart,
       countCart,
+      countTotalPrice,
     };
   }, [shoppingCart, countCart]);
 
