@@ -9,6 +9,7 @@ interface ProductCartCardProps extends ShoppingCartTypes {
     operation?: "DEC" | "INC",
     value?: number
   ) => void;
+  deleteItemFromCart: (id: string) => void;
 }
 
 export default function ProductCartCard({
@@ -19,6 +20,7 @@ export default function ProductCartCard({
   unit,
   image_url,
   updateItemFromCart,
+  deleteItemFromCart,
 }: ProductCartCardProps) {
   return (
     <div className="flex items-center gap-4 bg-[--white] rounded-lg">
@@ -32,7 +34,7 @@ export default function ProductCartCard({
       <div className="flex flex-col p-4">
         <div className="flex justify-between items-center">
           <h2 className="font-light text-xl text-[--gray-800]">{name}</h2>
-          <button>
+          <button onClick={() => deleteItemFromCart(id)}>
             <Trash size={20} color="var(--red-700)" />
           </button>
         </div>

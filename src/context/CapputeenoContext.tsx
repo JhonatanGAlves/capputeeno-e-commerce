@@ -11,6 +11,7 @@ interface CapputeenoContextProps {
     operation?: "DEC" | "INC",
     value?: number
   ) => void;
+  deleteItemFromCart: (id: string) => void;
 }
 
 interface CapputeenoContextProviderProps {
@@ -76,6 +77,8 @@ export default function CapputeenoContextProvider({
     operation?: "DEC" | "INC",
     amount?: number
   ) {
+    if (!id) return;
+
     const updatedItem = shoppingCart.map((item) => {
       let totalPrice = item.totalPrice;
       let priceInCents = item.price_in_cents;
@@ -103,6 +106,20 @@ export default function CapputeenoContextProvider({
     localStorage.setItem("cart", JSON.stringify(updatedItem));
   }
 
+  function deleteItemFromCart(id: string) {
+    if (!id) return;
+
+    const shoppingCartWithoutTheItemDeleted = shoppingCart.filter(
+      (item) => item.id !== id
+    );
+
+    setShoppingCart(shoppingCartWithoutTheItemDeleted);
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(shoppingCartWithoutTheItemDeleted)
+    );
+  }
+
   useEffect(() => {
     const totalUnit = shoppingCart.map((item) => item.unit);
     const sumUnit = totalUnit.reduce(
@@ -127,6 +144,7 @@ export default function CapputeenoContextProvider({
       countCart,
       countTotalPrice,
       updateItemFromCart,
+      deleteItemFromCart,
     };
   }, [shoppingCart, countCart]);
 

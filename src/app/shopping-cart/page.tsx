@@ -10,8 +10,13 @@ import ProductCartCard from "@/components/product/ProductCartCard";
 
 export default function ShoppingCartPage() {
   const [hasHydration, setHasHydration] = useState(false);
-  const { countCart, countTotalPrice, shoppingCart, updateItemFromCart } =
-    useContext(CapputeenoContext);
+  const {
+    countCart,
+    countTotalPrice,
+    shoppingCart,
+    updateItemFromCart,
+    deleteItemFromCart,
+  } = useContext(CapputeenoContext);
 
   const responsivePadding =
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
@@ -49,6 +54,7 @@ export default function ShoppingCartPage() {
                 <ProductCartCard
                   key={item.id}
                   updateItemFromCart={updateItemFromCart}
+                  deleteItemFromCart={deleteItemFromCart}
                   {...item}
                 />
               ))
