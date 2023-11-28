@@ -1,12 +1,9 @@
-import { useState } from "react";
-
 import Image from "next/image";
 import { Minus, Plus, Trash } from "@phosphor-icons/react";
 
 import { formatCentsToDollar } from "@/utils/utils";
 
 interface ProductCartCardProps extends ShoppingCartTypes {
-  index: number;
   updateItemFromCart: (
     id: string,
     operation?: "DEC" | "INC",
@@ -21,11 +18,8 @@ export default function ProductCartCard({
   totalPrice,
   unit,
   image_url,
-  index,
   updateItemFromCart,
 }: ProductCartCardProps) {
-  const [inputNumber, setInputNumber] = useState(unit);
-
   return (
     <div className="flex items-center gap-4 bg-[--white] rounded-lg">
       <Image

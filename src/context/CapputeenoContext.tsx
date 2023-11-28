@@ -74,26 +74,30 @@ export default function CapputeenoContextProvider({
   function updateItemFromCart(
     id: string,
     operation?: "DEC" | "INC",
-    value?: number
+    amount?: number
   ) {
-    const updatedItem = shoppingCart.map((item) =>
-      item.id === id
+    const updatedItem = shoppingCart.map((item) => {
+      let totalPrice = item.totalPrice;
+      let priceInCents = item.price_in_cents;
+      let unit = item.unit;
+
+      return item.id === id
         ? {
             ...item,
             totalPrice:
               operation === "DEC"
-                ? (item.totalPrice -= item.price_in_cents)
+                ? (totalPrice -= priceInCents)
                 : operation === "INC"
-                ? (item.totalPrice += item.price_in_cents)
-                : item.totalPrice * (value as number),
+                ? (totalPrice += priceInCents)
+                : priceInCents * (amount as number),
             unit: (operation === "DEC"
-              ? (item.unit -= 1)
+              ? (unit -= 1)
               : operation === "INC"
-              ? (item.unit += 1)
-              : value) as number,
+              ? (unit += 1)
+              : amount) as number,
           }
-        : { ...item }
-    );
+        : { ...item };
+    });
 
     setShoppingCart(updatedItem);
     localStorage.setItem("cart", JSON.stringify(updatedItem));

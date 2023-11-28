@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Link from "next/link";
 import { ArrowUUpLeft } from "@phosphor-icons/react";
@@ -9,6 +9,7 @@ import { formatCentsToDollar } from "@/utils/utils";
 import ProductCartCard from "@/components/product/ProductCartCard";
 
 export default function ShoppingCartPage() {
+  const [hasHydration, setHasHydration] = useState(false);
   const { countCart, countTotalPrice, shoppingCart, updateItemFromCart } =
     useContext(CapputeenoContext);
 
@@ -16,6 +17,10 @@ export default function ShoppingCartPage() {
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
 
   const deliveryFee = 1500;
+
+  useEffect(() => {
+    setHasHydration(true);
+  }, []);
 
   return (
     <main
@@ -39,14 +44,15 @@ export default function ShoppingCartPage() {
         </span>
 
         <div className="flex flex-col gap-4">
-          {shoppingCart.map((item, index) => (
-            <ProductCartCard
-              key={item.id}
-              index={index}
-              updateItemFromCart={updateItemFromCart}
-              {...item}
-            />
-          ))}
+          {hasHydration
+            ? shoppingCart.map((item) => (
+                <ProductCartCard
+                  key={item.id}
+                  updateItemFromCart={updateItemFromCart}
+                  {...item}
+                />
+              ))
+            : "Loading..."}
         </div>
       </div>
 
