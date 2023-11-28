@@ -6,6 +6,11 @@ interface CapputeenoContextProps {
   addItemToCart: (value: ShoppingCartTypes) => void;
   countCart: number;
   countTotalPrice: number;
+  updateItemFromCart: (
+    id: string,
+    operation?: "DEC" | "INC",
+    value?: number
+  ) => void;
 }
 
 interface CapputeenoContextProviderProps {
@@ -66,6 +71,34 @@ export default function CapputeenoContextProvider({
     }
   }
 
+  function updateItemFromCart(
+    id: string,
+    operation?: "DEC" | "INC",
+    value?: number
+  ) {
+    const updatedItem = shoppingCart.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            totalPrice:
+              operation === "DEC"
+                ? (item.totalPrice -= item.price_in_cents)
+                : operation === "INC"
+                ? (item.totalPrice += item.price_in_cents)
+                : item.totalPrice * (value as number),
+            unit: (operation === "DEC"
+              ? (item.unit -= 1)
+              : operation === "INC"
+              ? (item.unit += 1)
+              : value) as number,
+          }
+        : { ...item }
+    );
+
+    setShoppingCart(updatedItem);
+    localStorage.setItem("cart", JSON.stringify(updatedItem));
+  }
+
   useEffect(() => {
     const totalUnit = shoppingCart.map((item) => item.unit);
     const sumUnit = totalUnit.reduce(
@@ -89,6 +122,7 @@ export default function CapputeenoContextProvider({
       addItemToCart,
       countCart,
       countTotalPrice,
+      updateItemFromCart,
     };
   }, [shoppingCart, countCart]);
 

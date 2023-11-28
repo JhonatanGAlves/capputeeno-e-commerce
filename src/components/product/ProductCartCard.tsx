@@ -7,15 +7,22 @@ import { formatCentsToDollar } from "@/utils/utils";
 
 interface ProductCartCardProps extends ShoppingCartTypes {
   index: number;
+  updateItemFromCart: (
+    id: string,
+    operation?: "DEC" | "INC",
+    value?: number
+  ) => void;
 }
 
 export default function ProductCartCard({
+  id,
   name,
   description,
   totalPrice,
   unit,
   image_url,
   index,
+  updateItemFromCart,
 }: ProductCartCardProps) {
   const [inputNumber, setInputNumber] = useState(unit);
 
@@ -38,16 +45,24 @@ export default function ProductCartCard({
         <p className="mt-3 mb-6 text-xs text-[--gray-800]">{description}</p>
         <div className="flex justify-between items-center">
           <div className="w-fit flex justify-between items-center border border-solid border-[--gray-600] bg-[--gray-100] rounded-lg">
-            <button className="px-3 py-2">
+            <button
+              onClick={() => updateItemFromCart(id, "DEC", undefined)}
+              className="px-3 py-2"
+            >
               <Minus size={16} />
             </button>
             <input
               className="text-center outline-none w-8 bg-transparent"
               type="text"
-              value={inputNumber}
-              onChange={(e) => setInputNumber(Number(e.target.value))}
+              value={unit}
+              onChange={(e) =>
+                updateItemFromCart(id, undefined, Number(e.target.value))
+              }
             />
-            <button className="px-3 py-2">
+            <button
+              onClick={() => updateItemFromCart(id, "INC", undefined)}
+              className="px-3 py-2"
+            >
               <Plus size={16} />
             </button>
           </div>

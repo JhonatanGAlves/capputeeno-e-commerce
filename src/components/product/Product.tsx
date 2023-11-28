@@ -18,7 +18,7 @@ export default function Product() {
 
   return (
     <>
-      <Link href={"/"} className="flex items-center gap-2">
+      <Link href={"/"} className="flex items-center gap-2 w-fit">
         <div className=" rounded-full border-[2px] border-solid border-[--gray-500] flex justify-center items-center p-[0.28125rem]">
           <ArrowUUpLeft size={16} weight="bold" color="var(--gray-500)" />
         </div>
