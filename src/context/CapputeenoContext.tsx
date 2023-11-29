@@ -1,8 +1,16 @@
 "use client";
-import { useEffect, useState, useMemo, createContext, ReactNode } from "react";
+import {
+  useEffect,
+  useState,
+  useMemo,
+  createContext,
+  ReactNode,
+  SetStateAction,
+} from "react";
 
 interface CapputeenoContextProps {
   shoppingCart: ShoppingCartTypes[];
+  setShoppingCart: (value: SetStateAction<ShoppingCartTypes[]>) => void;
   addItemToCart: (value: ShoppingCartTypes) => void;
   countCart: number;
   countTotalPrice: number;
@@ -140,6 +148,7 @@ export default function CapputeenoContextProvider({
   const values = useMemo(() => {
     return {
       shoppingCart,
+      setShoppingCart,
       addItemToCart,
       countCart,
       countTotalPrice,

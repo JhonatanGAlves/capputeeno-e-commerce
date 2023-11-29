@@ -21,7 +21,9 @@
   --red-700: #de3838;
   --orange-400: #ffa585;
   --blue-700: #115d8c;
+  --blue-800: #0e4f77;
   --green-700: #51b853;
+  --green-800: #43a245;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,7 +45,9 @@
     --red-700: #de3838;
     --orange-400: #ffa585;
     --blue-700: #115d8c;
+    --blue-800: #0e4f77;
     --green-700: #51b853;
+    --green-800: #43a245;
   }
 }
 

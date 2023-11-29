@@ -10,10 +10,12 @@ import ProductCartCard from "@/components/product/ProductCartCard";
 
 export default function ShoppingCartPage() {
   const [hasHydration, setHasHydration] = useState(false);
+  const [hasCheckout, setHasCheckout] = useState(false);
   const {
     countCart,
     countTotalPrice,
     shoppingCart,
+    setShoppingCart,
     updateItemFromCart,
     deleteItemFromCart,
   } = useContext(CapputeenoContext);
@@ -21,15 +23,30 @@ export default function ShoppingCartPage() {
   const responsivePadding =
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
 
-  const deliveryFee = 1500;
+  const deliveryFee = hasHydration && !shoppingCart.length ? 0 : 1500;
 
   useEffect(() => {
     setHasHydration(true);
   }, []);
 
-  return (
+  return hasCheckout ? (
+    <div
+      className={`flex flex-col ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
+    >
+      <h2 className="text-xl">Purchase completed successfully.</h2>
+      <p className="text-base">
+        Go back to{" "}
+        <Link href={"/"} className="font-bold underline">
+          home
+        </Link>
+        .
+      </p>
+    </div>
+  ) : (
     <main
-      className={`flex gap-8 ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
+      className={`flex ${
+        !shoppingCart.length && "justify-between"
+      } gap-8 ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
     >
       <div className="flex flex-col">
         <Link href={"/"} className="flex items-center gap-2 w-fit">
@@ -79,7 +96,17 @@ export default function ShoppingCartPage() {
           </div>
         </div>
 
-        <button className="w-[19rem] h-11 mt-10 flex justify-center items-center font-medium text-[--gray-200] uppercase bg-[--green-700] rounded">
+        <button
+          className={`${
+            !shoppingCart.length &&
+            "opacity-60 cursor-not-allowed bg-[--green-800] pointer-events-none"
+          } transition-all w-[19rem] h-11 mt-10 flex justify-center items-center font-medium text-[--gray-200] uppercase bg-[--green-700] rounded`}
+          onClick={() => {
+            setShoppingCart([]);
+            localStorage.setItem("cart", JSON.stringify([]));
+            setHasCheckout(true);
+          }}
+        >
           checkout
         </button>
       </aside>

@@ -60,7 +60,7 @@ export default function Product() {
           </div>
           <button
             onClick={() => addItemToCart(product as ShoppingCartTypes)}
-            className="h-11 flex justify-center items-center gap-3 font-medium text-[--gray-200] bg-[--blue-700] uppercase rounded"
+            className="hover:bg-[--blue-800] transition-all h-11 flex justify-center items-center gap-3 font-medium text-[--gray-200] bg-[--blue-700] uppercase rounded"
           >
             <ShoppingBagOpen size={16} weight="bold" />
             add to cart
