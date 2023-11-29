@@ -7,6 +7,7 @@ import { ArrowUUpLeft } from "@phosphor-icons/react";
 import { CapputeenoContext } from "@/context/CapputeenoContext";
 import { formatCentsToDollar } from "@/utils/utils";
 import ProductCartCard from "@/components/product/ProductCartCard";
+import GlobalNotification from "@/components/global-notification/GlobalNotification";
 
 export default function ShoppingCartPage() {
   const [hasHydration, setHasHydration] = useState(false);
@@ -18,6 +19,8 @@ export default function ShoppingCartPage() {
     setShoppingCart,
     updateItemFromCart,
     deleteItemFromCart,
+    showNotificationAlert,
+    setShowNotificationAlert,
   } = useContext(CapputeenoContext);
 
   const responsivePadding =
@@ -106,11 +109,31 @@ export default function ShoppingCartPage() {
             setShoppingCart([]);
             localStorage.setItem("cart", JSON.stringify([]));
             setHasCheckout(true);
+
+            setShowNotificationAlert({
+              message: "",
+              showAlert: false,
+              description: "",
+            });
           }}
         >
           checkout
         </button>
       </aside>
+
+      <GlobalNotification
+        show={showNotificationAlert.showAlert}
+        message={showNotificationAlert.message}
+        description={showNotificationAlert.description}
+        onClose={(close) =>
+          setShowNotificationAlert({
+            message: "",
+            showAlert: close,
+            description: "",
+          })
+        }
+        timeToClose={7000}
+      />
     </main>
   );
 }

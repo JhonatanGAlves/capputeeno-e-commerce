@@ -20,6 +20,8 @@ interface CapputeenoContextProps {
     value?: number
   ) => void;
   deleteItemFromCart: (id: string) => void;
+  showNotificationAlert: MessageAlertTypes;
+  setShowNotificationAlert: (value: SetStateAction<MessageAlertTypes>) => void;
 }
 
 interface CapputeenoContextProviderProps {
@@ -47,6 +49,12 @@ export default function CapputeenoContextProvider({
   );
   const [countCart, setCountCart] = useState<number>(0);
   const [countTotalPrice, setCountTotalPrice] = useState<number>(0);
+  const [showNotificationAlert, setShowNotificationAlert] =
+    useState<MessageAlertTypes>({
+      message: "",
+      showAlert: false,
+      description: "",
+    });
 
   function addItemToCart(newShoppingCart: ShoppingCartTypes) {
     const itemAlreadyExistInTheCart = shoppingCart.some(
@@ -78,6 +86,12 @@ export default function CapputeenoContextProvider({
       setShoppingCart([...shoppingCart, newItem]);
       localStorage.setItem("cart", JSON.stringify([...shoppingCart, newItem]));
     }
+
+    setShowNotificationAlert({
+      message: "The item has been added to shopping cart successfully",
+      description: "Click on the cart at the top to see your list",
+      showAlert: true,
+    });
   }
 
   function updateItemFromCart(
@@ -126,6 +140,13 @@ export default function CapputeenoContextProvider({
       "cart",
       JSON.stringify(shoppingCartWithoutTheItemDeleted)
     );
+
+    setShowNotificationAlert({
+      message: "The item has been deleted from shopping cart successfully",
+      description:
+        "You can return to the home page and add new items to your cart",
+      showAlert: true,
+    });
   }
 
   useEffect(() => {
@@ -154,8 +175,10 @@ export default function CapputeenoContextProvider({
       countTotalPrice,
       updateItemFromCart,
       deleteItemFromCart,
+      showNotificationAlert,
+      setShowNotificationAlert,
     };
-  }, [shoppingCart, countCart]);
+  }, [shoppingCart, countCart, showNotificationAlert]);
 
   return (
     <CapputeenoContext.Provider value={values}>

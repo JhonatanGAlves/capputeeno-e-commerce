@@ -10,7 +10,7 @@ import { CapputeenoContext } from "@/context/CapputeenoContext";
 
 export default function Header() {
   const { inputTxt, setInputTxt } = useContext(FilterContext);
-  const { countCart } = useContext(CapputeenoContext);
+  const { countCart, setShowNotificationAlert } = useContext(CapputeenoContext);
 
   const responsivePadding =
     "px-4 min-[920px]:px-10 min-[980px]:px-20 min-[1140px]:px-40";
@@ -37,7 +37,16 @@ export default function Header() {
           <MagnifyingGlass className="ml-4" size={22} />
         </div>
         <div className="relative">
-          <Link href={"/shopping-cart"}>
+          <Link
+            href={"/shopping-cart"}
+            onClick={() =>
+              setShowNotificationAlert({
+                message: "",
+                showAlert: false,
+                description: "",
+              })
+            }
+          >
             <ShoppingBagOpen size={26} />
           </Link>
           <span

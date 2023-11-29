@@ -1,9 +1,15 @@
 "use client";
+import { useContext } from "react";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Product from "@/components/product/Product";
+import GlobalNotification from "@/components/global-notification/GlobalNotification";
+import { CapputeenoContext } from "@/context/CapputeenoContext";
 
 export default function ProductPage() {
+  const { showNotificationAlert, setShowNotificationAlert } =
+    useContext(CapputeenoContext);
   const client = new QueryClient();
 
   const responsivePadding =
@@ -15,6 +21,20 @@ export default function ProductPage() {
         className={`flex flex-col ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
       >
         <Product />
+
+        <GlobalNotification
+          show={showNotificationAlert.showAlert}
+          message={showNotificationAlert.message}
+          description={showNotificationAlert.description}
+          onClose={(close) =>
+            setShowNotificationAlert({
+              message: "",
+              showAlert: close,
+              description: "",
+            })
+          }
+          timeToClose={7000}
+        />
       </main>
     </QueryClientProvider>
   );

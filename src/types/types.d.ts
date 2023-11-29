@@ -13,3 +13,9 @@ interface ShoppingCartTypes extends Product {
   totalPrice: number;
   unit: number;
 }
+
+interface MessageAlertTypes {
+  message: string;
+  description: string;
+  showAlert: boolean;
+}
