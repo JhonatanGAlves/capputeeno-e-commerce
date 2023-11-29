@@ -45,7 +45,7 @@ export default function ShoppingCartPage() {
   ) : (
     <main
       className={`flex ${
-        !shoppingCart.length && "justify-between"
+        hasHydration && !shoppingCart.length && "justify-between"
       } gap-8 ${responsivePadding} pt-[2.125rem] pb-[3.75rem]`}
     >
       <div className="flex flex-col">
@@ -98,9 +98,10 @@ export default function ShoppingCartPage() {
 
         <button
           className={`${
+            hasHydration &&
             !shoppingCart.length &&
-            "opacity-60 cursor-not-allowed bg-[--green-800] pointer-events-none"
-          } transition-all w-[19rem] h-11 mt-10 flex justify-center items-center font-medium text-[--gray-200] uppercase bg-[--green-700] rounded`}
+            "opacity-60 cursor-not-allowed pointer-events-none"
+          } w-[19rem] h-11 mt-10 flex justify-center items-center font-medium text-[--gray-200] uppercase bg-[--green-700] hover:bg-[--green-800] rounded transition-all`}
           onClick={() => {
             setShoppingCart([]);
             localStorage.setItem("cart", JSON.stringify([]));

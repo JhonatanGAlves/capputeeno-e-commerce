@@ -25,12 +25,15 @@ export default function Product() {
         <span className="font-medium text-sm text-[--gray-500]">Back</span>
       </Link>
       <div className="flex justify-between mt-[1.375rem] gap-8">
-        <Image
-          src={product?.image_url ?? ""}
-          alt="Product image"
-          width={640}
-          height={580}
-        />
+        {product?.image_url && (
+          <Image
+            src={product?.image_url}
+            alt="Product image"
+            width={640}
+            height={580}
+          />
+        )}
+
         <div className="flex flex-col justify-between">
           <div className="flex flex-col">
             <span className="text-[--gray-800] capitalize">

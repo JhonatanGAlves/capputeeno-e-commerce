@@ -34,7 +34,10 @@ export default function ProductCartCard({
       <div className="flex flex-col p-4">
         <div className="flex justify-between items-center">
           <h2 className="font-light text-xl text-[--gray-800]">{name}</h2>
-          <button onClick={() => deleteItemFromCart(id)}>
+          <button
+            className="hover:opacity-60 transition-all"
+            onClick={() => deleteItemFromCart(id)}
+          >
             <Trash size={20} color="var(--red-700)" />
           </button>
         </div>
@@ -43,7 +46,7 @@ export default function ProductCartCard({
           <div className="w-fit flex justify-between items-center border border-solid border-[--gray-600] bg-[--gray-100] rounded-lg">
             <button
               onClick={() => updateItemFromCart(id, "DEC", undefined)}
-              className="px-3 py-2"
+              className="px-3 py-2 hover:bg-gradient-to-r from-[--gray-450] transition-all rounded-tl-lg rounded-bl-lg"
             >
               <Minus size={16} />
             </button>
@@ -57,7 +60,7 @@ export default function ProductCartCard({
             />
             <button
               onClick={() => updateItemFromCart(id, "INC", undefined)}
-              className="px-3 py-2"
+              className="px-3 py-2 hover:bg-gradient-to-l from-[--gray-450] transition-all rounded-tr-lg rounded-br-lg"
             >
               <Plus size={16} />
             </button>
