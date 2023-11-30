@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +11,25 @@ import { formatCentsToDollar } from "@/utils/utils";
 import { CapputeenoContext } from "@/context/CapputeenoContext";
 
 export default function Product() {
-  const { id } = useParams();
+  const [widthContent, setWidthContent] = useState(0);
+  const elementRef = useRef(null);
 
+  const { id } = useParams();
   const { product } = useSingleProduct(id as string);
   const { addItemToCart } = useContext(CapputeenoContext);
+
+  function handleResize() {
+    setWidthContent(elementRef.current.offsetWidth);
+  }
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -24,13 +39,30 @@ export default function Product() {
         </div>
         <span className="font-medium text-sm text-[--gray-500]">Back</span>
       </Link>
-      <div className="flex justify-between mt-[1.375rem] gap-8">
+      <div
+        ref={elementRef}
+        className={`flex ${
+          widthContent <= 640 ? "flex-col justify-center" : "justify-between"
+        } mt-[1.375rem] gap-8`}
+      >
         {product?.image_url && (
           <Image
             src={product?.image_url}
             alt="Product image"
-            width={640}
-            height={580}
+            width={
+              widthContent <= 1024 && widthContent > 768
+                ? 440
+                : widthContent <= 768 && widthContent > 640
+                ? 340
+                : 640
+            }
+            height={
+              widthContent === 1024 && widthContent > 768
+                ? 380
+                : widthContent === 768 && widthContent > 640
+                ? 280
+                : 580
+            }
           />
         )}
 
