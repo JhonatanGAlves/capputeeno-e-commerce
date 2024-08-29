@@ -19,7 +19,9 @@ export default function Product() {
   const { addItemToCart } = useContext(CapputeenoContext);
 
   function handleResize() {
-    setWidthContent(elementRef.current.offsetWidth);
+    if (elementRef?.current) {
+      setWidthContent((elementRef.current as HTMLDivElement).offsetWidth);
+    }
   }
 
   useEffect(() => {

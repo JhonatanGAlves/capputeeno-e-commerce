@@ -4,8 +4,11 @@ export function useOutsideClick(
   ref: MutableRefObject<null>,
   hideFilter: () => void
 ) {
-  const handleClick = (e: Event) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+  const handleClick = (e: MouseEvent) => {
+    if (
+      ref.current &&
+      !(ref.current as Element).contains(e.target as unknown as Node)
+    ) {
       hideFilter();
     }
   };
